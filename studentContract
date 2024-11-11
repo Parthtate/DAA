@@ -1,0 +1,33 @@
+// SPDX-License-Identifier: UNLICENSED
+
+pragma solidity ^0.6.0;
+
+contract StudentManagement {
+    // Define a Student structure with an ID, name, and department
+    struct Student {
+        int studId;
+        string name;
+        string department;
+    }
+
+    // Array to hold all students
+    Student[] public students;
+
+    // Function to add a new student to the array
+    function addStudent(int studId, string memory name, string memory department) public {
+        Student memory newStudent = Student(studId, name, department);
+        students.push(newStudent);
+    }
+
+    // Function to get a student's details by ID
+    function getStudent(int studId) public view returns (string memory, string memory) {
+        for (uint i = 0; i < students.length; i++) {
+            Student memory stud = students[i];
+            if (stud.studId == studId) {
+                return (stud.name, stud.department);
+            }
+        }
+        // Return "Not Found" if the student ID does not exist
+        return ("Not Found", "Not Found");
+    }
+}
